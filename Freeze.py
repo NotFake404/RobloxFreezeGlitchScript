@@ -37,6 +37,8 @@ def on_press(key):
                 saved_coordinatesBefore = pyautogui.position()
                 print("F3 key pressed")
                 print("Freeze Toggle True")
+                mouse.release('left')
+                mouse.release('right')
                 mouse.move(*saved_coordinates)
                 mouse.press('left')
                 spacebar_pressed = True
