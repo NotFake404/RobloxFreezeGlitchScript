@@ -3,6 +3,7 @@ from pynput import keyboard
 import mouse
 import time
 import threading
+import pynput
 
 # Initialize variables
 saved_coordinates = None
@@ -35,25 +36,32 @@ def on_press(key):
                 global saved_coordinatesBefore
                 saved_coordinatesBefore = pyautogui.position()
                 print("F3 key pressed")
+                print("Freeze Toggle True")
                 mouse.move(*saved_coordinates)
                 mouse.press('left')
                 spacebar_pressed = True
                 threading.Thread(target=press_spacebar).start()
+                global mouse_listener
+                mouse_listener = pynput.mouse.Listener(suppress=True)
+                mouse_listener.start()
+                
+                
             else:
                 # Release LMB and spacebar when F3 is released
-                mouse.release('left')
+                print("F3 key pressed")
+                print("Freeze Toggle False")
                 spacebar_pressed = False
+                mouse_listener.stop()
+                mouse.release('left')
                 mouse.move(*saved_coordinatesBefore)
 
-def on_release(key):
-    if key == keyboard.Key.esc:
-        # Stop listener when Esc is pressed
-        return False
+
 
 # Prompt user to move mouse and press Q
 print("Move the mouse to the desired location and press Q to save the coordinates.")
 
 # Collect events until released
-listener = keyboard.Listener(on_press=on_press, on_release=on_release)
+
+listener = keyboard.Listener(on_press=on_press)
 listener.start()
 listener.join()
