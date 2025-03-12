@@ -8,7 +8,8 @@ Py Macro that does the roblox freeze glitch. (Works with patch)
 ## Setup:
 1. Install Python if you havn't already
 2. Run this command in your terminal:
- pip install pyautogui pynput mouse keyboard
+
+pip install pyautogui pynput mouse keyboard
 
 ## Using it:
 Run Freeze.Py
